@@ -26,10 +26,11 @@ export const createPost = async (req, res) => {
 };
 
 export const updatePost = async (req, res) => {
-    const body = req.body;
+    const post = req.body;
 
     try {
-
+        const updatedPost = await PostMessage.findByIdAndUpdate(req.params.id, post, { new: true });
+        res.status(200).json(updatedPost);
     }
     catch (err) {
         res.status(404).json({ message: err.message });
@@ -37,10 +38,10 @@ export const updatePost = async (req, res) => {
 };
 
 export const deletePost = async (req, res) => {
-    const body = req.body;
 
     try {
-
+        await PostMessage.findByIdAndDelete(req.params.id);
+        res.status(200).json({ message: "Post deleted" });
     }
     catch (err) {
         res.status(404).json({ message: err.message });
