@@ -3,11 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { TextField, Button, Typography, Paper } from '@material-ui/core';
 import FileBase from 'react-file-base64';
 import useStyles from './styles';
-import { addPost } from '../../state/actions/postActions';
+import { addPost, updatePost } from '../../state/actions/postActions';
 
-const Form = () => {
+const Form = ({currentId, setCurrentId }) => {
     const classes = useStyles();
     const dispatch = useDispatch();
+    const postId = useSelector(state => state.currentId);
+    const post = useSelector(state => currentId ? state.posts.find(post => post._id === currentId) : null);
+    console.log(postId);
 
     const [postData, setPostData] = useState({
         creator: '',
@@ -17,12 +20,15 @@ const Form = () => {
         selectedFile: ''
     });
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        dispatch(addPost(postData));
-    }
+    useEffect(() => {
+        if (post) {
+          setPostData(post);
+        }
+    }, [post]);
+    
 
     const clear = () => {
+        setCurrentId(null);
         setPostData({
             creator: '',
             title: '',
@@ -30,12 +36,24 @@ const Form = () => {
             tags: '',
             selectedFile: ''
         });
+        console.log(postId);
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        //dispatch(addPost(postData));
+        if (currentId) {
+            dispatch(updatePost(currentId, postData));
+        } 
+        else {
+            dispatch(addPost(postData));
+        }
     }
 
   return (
     <Paper className={classes.paper} style={{ padding: '1rem' }}>
       <form autoComplete='off' noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
-        <Typography variant="h6">Share your Highlight</Typography>
+        <Typography variant="h6">{currentId ? 'Editing Post': 'Create a Post'} </Typography>
         <TextField 
           name='creator' 
           label='Creator' 
@@ -91,8 +109,6 @@ const Form = () => {
           className={classes.buttonSubmit}
           size='small'
           onClick={clear}
-          //add padding to the right
-          //style={{ marginLeft: '3rem' }}
         >
           Cancel
         </Button>

@@ -4,19 +4,20 @@ export default (state = [], action) => {
       return action.payload;
     case 'ADD_POST':
         return [...state, action.payload];
-    // case 'DELETE_POST':
-    //     return state.filter(post => post.id !== action.payload);
-    // case 'EDIT_POST':
-    //     return state.map(post => {
-    //         if (post.id === action.payload.id) {
-    //             return {
-    //                 ...post,
-    //                 ...action.payload
-    //             }
-    //         } else {
-    //             return post;
-    //         }
-    //     });
+    case 'DELETE_POST':
+        return state.filter(post => post._id !== action.payload);
+    case 'EDIT_POST':
+        return state.map(post => {
+            if (post._id === action.payload._id) {
+                return {
+                    ...post,
+                    ...action.payload
+                }
+            } else {
+                return post;
+            }
+        });
+        
     default:
       return state;
   }
