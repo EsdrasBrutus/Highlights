@@ -52,6 +52,19 @@ export const deletePost = (id) => async (dispatch) => {
     }
 }
 
+export const likePost = (id, post) => async (dispatch) => {
+    try {
+        const likedPost = await api.likePost(id, post);
+        dispatch({ 
+            type: 'LIKE_POST',
+            payload: likedPost
+        });
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
+
 export const setCurrentId = (id) => {
     return {
         type: 'SET_CURRENT_ID',

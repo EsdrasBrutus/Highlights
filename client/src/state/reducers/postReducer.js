@@ -17,7 +17,18 @@ export default (state = [], action) => {
                 return post;
             }
         });
-        
+    case 'LIKE_POST':
+        return state.map(post => {
+            if (post._id === action.payload._id) {
+                return {
+                    ...post,
+                    ...action.payload
+                }
+            } else {
+                return post;
+            }
+        });
+       
     default:
       return state;
   }

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux';
-import { deletePost, setCurrentId } from '../../../state/actions/postActions';
+import { deletePost, setCurrentId, likePost } from '../../../state/actions/postActions';
 //import { toggleModal } from '../../../state/actions/modalActions';
 
 import { Card, CardActions, CardContent, CardMedia, Typography, Button } from '@material-ui/core';
@@ -41,10 +41,12 @@ const Post = ({ post }) => {
                 <Typography className={classes.title} variant="h5">{post.message}</Typography>
             </CardContent>
             <CardActions className={classes.cardActions}>
-                <Button size="small" color='primary' onClick={() => {}}>
+                <Button size="small" color='primary' onClick={() => {
+                    dispatch(likePost(post._id));
+                }}>
                     <ThumbUpAltIcon fontSize='small' />
                     Like
-                    {post.likeCount}
+                    {post.likes}
                 </Button>
                 <Button size="small" color='secondary' onClick={() => {
                     dispatch(deletePost(post._id));

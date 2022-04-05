@@ -11,7 +11,6 @@ const Form = () => {
     const dispatch = useDispatch();
     const postId = useSelector(state => state.currentId);
     const post = useSelector(state => state.currentId ? state.posts.find(post => post._id === state.currentId) : null);
-    console.log(postId);
 
     const [postData, setPostData] = useState({
         creator: '',
@@ -37,7 +36,6 @@ const Form = () => {
             tags: '',
             selectedFile: ''
         });
-        console.log(postId);
     }
 
     const handleSubmit = (e) => {

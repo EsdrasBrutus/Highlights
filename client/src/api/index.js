@@ -27,3 +27,8 @@ export const deletePost = async id => {
     return res.data;
 };
 
+export const likePost = async (id, post) => {
+    const res = await axios.patch(`${url}/${id}/upvote`, post);
+    return res.data;
+};
+
