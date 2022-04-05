@@ -3,13 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { TextField, Button, Typography, Paper } from '@material-ui/core';
 import FileBase from 'react-file-base64';
 import useStyles from './styles';
-import { addPost, updatePost } from '../../state/actions/postActions';
+import { addPost, updatePost, setCurrentId } from '../../state/actions/postActions';
 
-const Form = ({currentId, setCurrentId }) => {
+
+const Form = () => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const postId = useSelector(state => state.currentId);
-    const post = useSelector(state => currentId ? state.posts.find(post => post._id === currentId) : null);
+    const post = useSelector(state => state.currentId ? state.posts.find(post => post._id === state.currentId) : null);
     console.log(postId);
 
     const [postData, setPostData] = useState({
@@ -28,7 +29,7 @@ const Form = ({currentId, setCurrentId }) => {
     
 
     const clear = () => {
-        setCurrentId(null);
+        dispatch(setCurrentId(null));
         setPostData({
             creator: '',
             title: '',
@@ -41,9 +42,8 @@ const Form = ({currentId, setCurrentId }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        //dispatch(addPost(postData));
-        if (currentId) {
-            dispatch(updatePost(currentId, postData));
+        if (postId) {
+            dispatch(updatePost(postId, postData));
         } 
         else {
             dispatch(addPost(postData));
@@ -53,7 +53,7 @@ const Form = ({currentId, setCurrentId }) => {
   return (
     <Paper className={classes.paper} style={{ padding: '1rem' }}>
       <form autoComplete='off' noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
-        <Typography variant="h6">{currentId ? 'Editing Post': 'Create a Post'} </Typography>
+        <Typography variant="h6">{postId ? 'Editing Post': 'Create a Post'} </Typography>
         <TextField 
           name='creator' 
           label='Creator' 

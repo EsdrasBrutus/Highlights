@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux';
-import { deletePost } from '../../../state/actions/postActions';
+import { deletePost, setCurrentId } from '../../../state/actions/postActions';
 //import { toggleModal } from '../../../state/actions/modalActions';
 
 import { Card, CardActions, CardContent, CardMedia, Typography, Button } from '@material-ui/core';
@@ -14,7 +14,7 @@ import moment from 'moment';
 
 import useStyles from './styles';
 
-const Post = ({ post, setCurrentId }) => {
+const Post = ({ post }) => {
     const classes = useStyles();
     const dispatch = useDispatch();
 
@@ -27,7 +27,8 @@ const Post = ({ post, setCurrentId }) => {
             </div>
             <div className={classes.overlay2}>
                 <Button style={{color:'white'}} size="small" onClick={() => {
-                    setCurrentId(post._id);
+                    dispatch(setCurrentId(post._id));
+                    
                 }}>
                     <MoreHorizIcon fontSize='medium' />
                 </Button>
