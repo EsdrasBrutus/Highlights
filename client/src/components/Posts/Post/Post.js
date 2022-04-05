@@ -38,7 +38,7 @@ const Post = ({ post }) => {
             </div>
             <Typography className={classes.title} variant="h5">{post.title}</Typography>
             <CardContent>
-                <Typography className={classes.title} variant="h5">{post.message}</Typography>
+                <Typography className={classes.title} variant="body2" color="text-secondary" component="p">{post.message}</Typography>
             </CardContent>
             <CardActions className={classes.cardActions}>
                 <Button size="small" color='primary' onClick={() => {
