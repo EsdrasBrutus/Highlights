@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch } from 'react-redux';
 import { deletePost, setCurrentId, likePost } from '../../../state/actions/postActions';
-//import { toggleModal } from '../../../state/actions/modalActions';
+import { showModal } from '../../../state/actions/modalActions';
 
 import { Card, CardActions, CardContent, CardMedia, Typography, Button } from '@material-ui/core';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
@@ -17,6 +17,10 @@ import useStyles from './styles';
 const Post = ({ post }) => {
     const classes = useStyles();
     const dispatch = useDispatch();
+    const handleEdit = () => {
+        dispatch(setCurrentId(post._id));
+        dispatch(showModal());
+    };
 
     return (
         <Card className={classes.card}>
@@ -26,10 +30,7 @@ const Post = ({ post }) => {
                 <Typography variant="body2">{moment(post.createdAt).fromNow()}</Typography>
             </div>
             <div className={classes.overlay2}>
-                <Button style={{color:'white'}} size="small" onClick={() => {
-                    dispatch(setCurrentId(post._id));
-                    
-                }}>
+                <Button style={{ color: 'white' }} size="small" onClick={() => {handleEdit()}}>
                     <MoreHorizIcon fontSize='medium' />
                 </Button>
             </div>
@@ -38,7 +39,7 @@ const Post = ({ post }) => {
             </div>
             <Typography className={classes.title} variant="h5">{post.title}</Typography>
             <CardContent>
-                <Typography className={classes.title} variant="body2" color="text-secondary" component="p">{post.message}</Typography>
+                <Typography className={classes.title} variant="body2" color="textSecondary" component="p">{post.message}</Typography>
             </CardContent>
             <CardActions className={classes.cardActions}>
                 <Button size="small" color='primary' onClick={() => {

@@ -9,9 +9,9 @@ const Posts = () => {
     const classes = useStyles();
   return (
     !posts.length ? <CircularProgress className={classes.progress} /> :
-    <Grid container className={classes.container} spacing={3} alignItems={'stretch'}>
+    <Grid container className={classes.container} spacing={4} alignItems={'stretch'}>
         {posts.map(post => (
-            <Grid item xs={12} sm={6} md={4} key={post._id}>
+            <Grid item xs={12} sm={6} md={6} key={post._id}>
                 <Post post={post} />
             </Grid>
         ))}

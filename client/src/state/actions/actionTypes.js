@@ -6,3 +6,5 @@ export const LIKE = 'LIKE';
 
 export const SET_CURRENT_ID = 'SET_CURRENT_ID';
 
+export const SHOW_MODAL = 'SHOW_MODAL';
+

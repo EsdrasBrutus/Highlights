@@ -1,7 +1,9 @@
 //Modal isOpen state is handled here
+import { SHOW_MODAL } from "../actions/actionTypes";
+
 export default (state = false, action) => {
     switch (action.type) {
-        case 'TOGGLE_MODAL':
+        case SHOW_MODAL:
             return !state;
         default:
             return state;

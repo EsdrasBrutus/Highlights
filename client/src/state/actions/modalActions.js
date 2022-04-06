@@ -1,8 +1,10 @@
 //show/hide modal window
-export const toggleModal = (modalType, modalProps) => {
+import { SHOW_MODAL } from './actionTypes';
+
+export const showModal = (modalType, modalProps) => {
     return {
-        type: 'TOGGLE_MODAL',
+        type: SHOW_MODAL,
         modalType,
-        modalProps,
+        modalProps
     };
-};
+}
