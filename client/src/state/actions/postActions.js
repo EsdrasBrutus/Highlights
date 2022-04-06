@@ -1,10 +1,11 @@
 import * as api from '../../api';
+import { FETCH_POSTS, CREATE, UPDATE, DELETE, LIKE, SET_CURRENT_ID } from './actionTypes';
 
 export const getPosts = () => async (dispatch) => {
-   try {
+    try {
         const posts = await api.fetchPosts();
         dispatch({
-             type: 'FETCH_POSTS',
+             type: FETCH_POSTS,
              payload: posts
         });
    }
@@ -17,7 +18,7 @@ export const addPost = (newPost) => async (dispatch) => {
     try {
         const post = await api.createPost(newPost);
         dispatch({
-            type: 'ADD_POST',
+            type: CREATE,
             payload: post
         });
     }
@@ -30,7 +31,7 @@ export const updatePost = (id, post) => async (dispatch) => {
     try {
         const updatedPost = await api.updatePost(id, post);
         dispatch({
-            type: 'EDIT_POST',
+            type: UPDATE,
             payload: updatedPost
         });
     }
@@ -43,7 +44,7 @@ export const deletePost = (id) => async (dispatch) => {
     try {
         await api.deletePost(id);
         dispatch({
-            type: 'DELETE_POST',
+            type: DELETE,
             payload: id
         });
     }
@@ -56,7 +57,7 @@ export const likePost = (id, post) => async (dispatch) => {
     try {
         const likedPost = await api.likePost(id, post);
         dispatch({ 
-            type: 'LIKE_POST',
+            type: LIKE,
             payload: likedPost
         });
     }
@@ -67,7 +68,7 @@ export const likePost = (id, post) => async (dispatch) => {
 
 export const setCurrentId = (id) => {
     return {
-        type: 'SET_CURRENT_ID',
+        type: SET_CURRENT_ID,
         payload: id
     }
 }

@@ -1,12 +1,14 @@
+import { FETCH_POSTS, CREATE, UPDATE, DELETE, LIKE } from "../actions/actionTypes";
+
 export default (state = [], action) => {
   switch (action.type) {
-    case 'FETCH_POSTS':
+    case FETCH_POSTS:
       return action.payload;
-    case 'ADD_POST':
+    case CREATE:
         return [...state, action.payload];
-    case 'DELETE_POST':
+    case DELETE:
         return state.filter(post => post._id !== action.payload);
-    case 'EDIT_POST':
+    case UPDATE:
         return state.map(post => {
             if (post._id === action.payload._id) {
                 return {
@@ -17,7 +19,7 @@ export default (state = [], action) => {
                 return post;
             }
         });
-    case 'LIKE_POST':
+    case LIKE:
         return state.map(post => {
             if (post._id === action.payload._id) {
                 return {

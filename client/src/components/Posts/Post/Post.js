@@ -44,9 +44,8 @@ const Post = ({ post }) => {
                 <Button size="small" color='primary' onClick={() => {
                     dispatch(likePost(post._id));
                 }}>
-                    <ThumbUpAltIcon fontSize='small' />
-                    Like
-                    {post.likes}
+                    <ThumbUpAltIcon fontSize='small' /> 
+                    Likes {post.likes}
                 </Button>
                 <Button size="small" color='secondary' onClick={() => {
                     dispatch(deletePost(post._id));
