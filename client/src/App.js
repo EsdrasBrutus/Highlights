@@ -13,9 +13,9 @@ import Form from "./components/Form/Form";
 
 import { useSelector, useDispatch } from "react-redux";
 import { getPosts, setCurrentId } from "./state/actions/postActions";
-import logo from "./images/logo.png";
 import useStyles from "./styles";
 import { showModal } from "./state/actions/modalActions";
+import Navbar from "./components/Navbar/Navbar";
 
 const App = () => {
 	const classes = useStyles();
@@ -40,17 +40,7 @@ const App = () => {
 
 	return (
 		<Container maxWidth="lg">
-			<AppBar className={classes.appBar} position="static" color="inherit">
-				<Typography
-					className={classes.heading}
-					variant="h2"
-					align="center"
-					color="inherit"
-				>
-					Gamer Street
-				</Typography>
-				<img className={classes.image} src={logo} alt="logo" width={"60px"} />
-			</AppBar>
+			<Navbar />
 			<Grow in>
 				<Container>
 					<Grid
