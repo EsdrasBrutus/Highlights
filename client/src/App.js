@@ -31,7 +31,6 @@ const App = () => {
 	}, [dispatch]);
 
 	const style = {
-		// center the modal horizontally
 		position: "absolute",
 		top: "50%",
 		left: "50%",
