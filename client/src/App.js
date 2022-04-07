@@ -50,15 +50,6 @@ const App = () => {
 					Gamer Street
 				</Typography>
 				<img className={classes.image} src={logo} alt="logo" width={"60px"} />
-				<button
-					className={classes.button}
-					onClick={() => {
-						toggleModal();
-					}}
-				>
-					{" "}
-					New Post{" "}
-				</button>
 			</AppBar>
 			<Grow in>
 				<Container>
@@ -69,7 +60,18 @@ const App = () => {
 						alignItems="stretch"
 						spacing={3}
 					>
-						<Grid item xs={12} sm={6}>
+						<Grid item xs={12} sm={2}>
+							<button
+								className={classes.button}
+								onClick={() => {
+									toggleModal();
+								}}
+							>
+								{" "}
+								New Post{" "}
+							</button>
+						</Grid>
+						<Grid item xs={12} sm={12}>
 							<Posts />
 						</Grid>
 					</Grid>
