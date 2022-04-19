@@ -13,12 +13,15 @@ import Input from "./Input";
 import useStyles from "./styles";
 
 import { GoogleLogin } from "react-google-login";
+import { useDispatch } from "react-redux";
 
 const Auth = () => {
 	const classes = useStyles();
 
 	const [showPassword, setShowPassword] = useState(false);
 	const [isSignUp, setIsSignUp] = useState(false);
+
+	const dispatch = useDispatch();
 	const handleSubmit = (e) => {
 		e.preventDefault();
 	};
@@ -29,8 +32,19 @@ const Auth = () => {
 	const handleClickShowPassword = () => {
 		setShowPassword((prev) => !prev);
 	};
-	const googleSuccess = (response) => { };
-	const googleFailure = (response) => { };
+	const googleSuccess = async (response) => {
+		const result = response?.profileObj;
+		const token = response?.tokenId;
+
+		try {
+			dispatch({ type: "AUTH", data: { result, token } });
+		} catch (err) {
+			console.log(err);
+		}
+	};
+	const googleFailure = (response) => {
+		console.log(response);
+	};
 
 	return (
 		<Container component="main" maxWidth="xs">
@@ -92,7 +106,7 @@ const Auth = () => {
 						{isSignUp ? "Sign up" : "Login"}
 					</Button>
 					<GoogleLogin
-						clientId="Google ID"
+						clientId="178778443553-u1c9uffri885qcdmfa463k08o9smg7kh.apps.googleusercontent.com"
 						render={(renderProps) => (
 							<Button
 								className={classes.googleButton}
@@ -106,14 +120,14 @@ const Auth = () => {
 									src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
 									alt="google logo"
 								/>
-									{isSignUp ? "Sign up with Google" : "Login with Google"}
+								{isSignUp ? "Sign up with Google" : "Login with Google"}
 							</Button>
 						)}
 						onSuccess={googleSuccess}
 						onFailure={googleFailure}
 						cookiePolicy="single_host_origin"
 					/>
-					<Grid container justify="flex-end">
+					<Grid container justifyContent="flex-end">
 						<Grid item>
 							<Button onClick={switchMode}>
 								{isSignUp
