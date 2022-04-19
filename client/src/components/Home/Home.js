@@ -1,11 +1,5 @@
 import React, { useEffect } from "react";
-import {
-	Container,
-	Grow,
-	Grid,
-	Box,
-	Modal,
-} from "@material-ui/core";
+import { Container, Grow, Grid, Box, Modal } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
 import Posts from "../Posts/Posts";
 import Form from "../Form/Form";
@@ -13,7 +7,7 @@ import { getPosts, setCurrentId } from "../../state/actions/postActions";
 import useStyles from "./styles";
 import { showModal } from "../../state/actions/modalActions";
 
-export const Home = () => {
+const Home = () => {
 	const dispatch = useDispatch();
 	const toggleModal = () => {
 		dispatch(showModal());
@@ -72,3 +66,5 @@ export const Home = () => {
 		</Grow>
 	);
 };
+
+export default Home;
