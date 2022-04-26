@@ -14,15 +14,25 @@ export const signIn = async (req, res) => {
 
 		const isMatch = await bycrypt.compare(password, user.password);
 
-        if (!isMatch)
-            return res.status(401).json({ message: "Wrong password" });
+		if (!isMatch) return res.status(401).json({ message: "Wrong password" });
 
-		const token = jwt.sign({email: user.email, id: user._id }, process.env.JWT_SECRET);
+		const token = jwt.sign(
+			{ email: user.email, id: user._id },
+			process.env.JWT_SECRET,
+			{ expiresIn: "1h" }
+		);
 
-		res.status(200).json({ token });
+		res.status(200).json({ result: user, token });
 	} catch (err) {
-		res.status(404).json({ message: err.message });
+		res.status(404).json({ message: "Something Went Wrong." });
 	}
 };
 
-export const signUp = async (req, res) => {}; 
+export const signUp = async (req, res) => {
+    const { firstName, lastName, email, password, confirmPassword } = req.body;
+
+    try { }
+    catch (err) {
+        res.status(404).json({ message: "Something Went Wrong." });
+    }
+};
