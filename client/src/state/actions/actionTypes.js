@@ -10,3 +10,6 @@ export const SHOW_MODAL = "SHOW_MODAL";
 
 export const AUTH = "AUTH";
 export const LOGOUT = "LOGOUT";
+
+export const SIGN_UP = "SIGN_UP";
+export const SIGN_IN = "SIGN_IN";
