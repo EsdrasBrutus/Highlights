@@ -69,13 +69,24 @@ export const deletePost = async (req, res) => {
 export const likePost = async (req, res) => {
     const { id } = req.params;
 
-    if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).json({ message: "No post with that id" });
+    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).json({ message: "No post with that id" });
+    
+    if (!req.userId) return res.json({ message: "You must be logged in to like a post" });
 
     try {
         const post = await PostMessage.findById(id);
-        post.likes++;
-        await post.save();
-        res.status(200).json(post);
+
+        const index = post.likes.findIndex((id) => id == String(req.userId));
+        
+        if (index === -1) {
+            post.likes.push(req.userId);
+        }
+        else { 
+            post.likes.filter((id) => id != String(req.userId));
+        }
+
+        const updatedPost = await PostMessage.findByIdAndUpdate(id, { ...post, _id }, { new: true });
+        res.status(200).json(updatedPost);
     }
     catch (err) {
         res.status(404).json({ message: err.message });
