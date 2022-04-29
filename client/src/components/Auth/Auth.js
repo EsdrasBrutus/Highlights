@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
 	Avatar,
 	Button,
@@ -23,6 +23,7 @@ const Auth = () => {
 		lastName: "",
 		email: "",
 		password: "",
+		confirmPassword: "",
 	};
 	const classes = useStyles();
 
@@ -84,7 +85,7 @@ const Auth = () => {
 								<Input
 									name="firstName"
 									label="First Name"
-									handeChange={handleChange}
+									handleChange={handleChange}
 									autoFocus
 									half
 								/>
@@ -92,7 +93,7 @@ const Auth = () => {
 								<Input
 									name="lastName"
 									label="Last Name"
-									handeChange={handleChange}
+									handleChange={handleChange}
 									half
 								/>
 							</>
@@ -100,7 +101,7 @@ const Auth = () => {
 						<Input
 							name="email"
 							label="Email Address"
-							handeChange={handleChange}
+							handleChange={handleChange}
 							type="email"
 						/>
 						<Input
@@ -114,7 +115,7 @@ const Auth = () => {
 							<Input
 								name="confirmPassword"
 								label="Confirm Password"
-								handeChange={handleChange}
+								handleChange={handleChange}
 								type="password"
 								handleClickShowPassword={handleClickShowPassword}
 							/>

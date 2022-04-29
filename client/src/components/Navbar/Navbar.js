@@ -6,22 +6,21 @@ import logo from "../../images/logo.png";
 import { useDispatch } from "react-redux";
 
 const Navbar = () => {
-	const classes = useStyles();
 	const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const location = useLocation();
+	const classes = useStyles();
 
 	const logout = () => {
 		dispatch({ type: "LOGOUT" });
 		navigate("/");
 		setUser(null);
-	}
+	};
 
 	useEffect(() => {
 		const token = user?.token;
 		setUser(JSON.parse(localStorage.getItem("profile")));
-
 	}, [location]);
 	return (
 		<AppBar className={classes.appBar} position="static" color="inherit">
@@ -31,7 +30,7 @@ const Navbar = () => {
 				align="center"
 				color="inherit"
 			>
-				Gamer Street
+				Highlights
 			</Typography>
 			<img className={classes.image} src={logo} alt="logo" width={"60px"} />
 			<Toolbar className={classes.toolbar}>
@@ -39,8 +38,8 @@ const Navbar = () => {
 					<div className={classes.profile}>
 						<Avatar
 							className={classes.avatar}
-							alt={user.result.name}
-							src={user.result.avatar}
+							alt={user?.result.name}
+							src={user?.result.avatar}
 						>
 							{user.result.name.charAt(0)}
 						</Avatar>
@@ -49,7 +48,7 @@ const Navbar = () => {
 							variant="h6"
 							color="inherit"
 						>
-							{user.result.name}
+							{user?.result.name}
 						</Typography>
 						<Button
 							className={classes.button}
