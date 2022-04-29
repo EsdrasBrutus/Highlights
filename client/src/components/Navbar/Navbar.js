@@ -4,6 +4,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import useStyles from "./styles";
 import logo from "../../images/logo.png";
 import { useDispatch } from "react-redux";
+import jwt_decode from "jwt-decode";
 
 const Navbar = () => {
 	const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
@@ -20,6 +21,14 @@ const Navbar = () => {
 
 	useEffect(() => {
 		const token = user?.token;
+
+		if (token) { 
+			const decoded = jwt_decode(token);
+			if (decoded.exp * 1000 < new Date().getTime() / 1000) {
+				logout();
+			}
+		}
+
 		setUser(JSON.parse(localStorage.getItem("profile")));
 	}, [location]);
 	return (
