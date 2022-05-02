@@ -7,7 +7,7 @@ const Paginate = () => {
 	const classes = useStyles();
 	return (
 		<Pagination
-			classes={classes.ul}
+			className={classes.ul}
 			count={10}
 			page={1}
 			variant="outlined"

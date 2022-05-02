@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
-import { Container, Grow, Grid, Box, Modal } from "@material-ui/core";
+import { Container, Grow, Grid, Box, Modal, Paper } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
 import Posts from "../Posts/Posts";
 import Form from "../Form/Form";
 import { getPosts, setCurrentId } from "../../state/actions/postActions";
 import useStyles from "./styles";
 import { showModal } from "../../state/actions/modalActions";
+import Paginate from "../Pagination/Pagination";
 
 const Home = () => {
 	const dispatch = useDispatch();
@@ -49,6 +50,9 @@ const Home = () => {
 						<Posts />
 					</Grid>
 				</Grid>
+				<Paper className={classes.pagination} elevation={6}>
+					<Paginate />
+				</Paper>
 				<Modal
 					open={isOpen}
 					onClose={() => {
