@@ -7,5 +7,9 @@ export default makeStyles((theme) => ({
 		display: "flex",
 		//padding: "16px",
 		width: "83%",
-	},
+    },
+    formControl: {
+        margin: theme.spacing(1),
+        minWidth: 120,
+    },
 }));
