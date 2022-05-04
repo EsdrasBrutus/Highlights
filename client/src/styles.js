@@ -4,9 +4,9 @@ export default makeStyles((theme) => ({
     heading: {
         color: '#133a78',
     },
-    image: {
-        marginLeft: '15px',
-    },
+    // image: {
+    //     marginLeft: '15px',
+    // },
     button: {
         backgroundColor: '#133a78',
         color: '#fff',

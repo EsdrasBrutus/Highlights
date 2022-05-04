@@ -20,9 +20,9 @@ export default makeStyles((theme) => ({
 			backgroundColor: "#133a78",
 		},
 	},
-	[theme.breakpoints.down("sm")]: {
+	[theme.breakpoints.down("xs")]: {
 		mainContainer: {
 			flexDirection: "column-reverse",
 		},
-	},
+	}
 }));

@@ -32,7 +32,7 @@ const Navbar = () => {
 		setUser(JSON.parse(localStorage.getItem("profile")));
 	}, [location]);
 	return (
-		<AppBar className={classes.appBar} position="static" color="inherit">
+		<AppBar className={classes.appBar} position="static" color="inherit" >
 			<Typography
 				className={classes.heading}
 				variant="h2"

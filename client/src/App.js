@@ -12,7 +12,7 @@ const App = () => {
 
 	return (
 		<Router>
-			<Container maxWidth="lg">
+			<Container maxWidth="xl">
 				<Navbar />
 				<Routes>
 					<Route path="/" exact element={<Navigate replace to="/posts" />} />

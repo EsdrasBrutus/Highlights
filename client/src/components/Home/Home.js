@@ -1,5 +1,13 @@
-import React, { useEffect } from "react";
-import { Container, Grow, Grid, Box, Modal, Paper } from "@material-ui/core";
+import React, { useEffect, useState } from "react";
+import {
+	Container,
+	Grow,
+	Grid,
+	Box,
+	Modal,
+	Paper
+} from "@material-ui/core";
+import { useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import Posts from "../Posts/Posts";
 import Form from "../Form/Form";
@@ -7,9 +15,17 @@ import { getPosts, setCurrentId } from "../../state/actions/postActions";
 import useStyles from "./styles";
 import { showModal } from "../../state/actions/modalActions";
 import Paginate from "../Pagination/Pagination";
+import Search from "../Search/Search";
+
+const useQuery = () => {
+	return new URLSearchParams(useLocation().search);
+};
 
 const Home = () => {
 	const dispatch = useDispatch();
+	const query = useQuery();
+	const page = query.get("page") || 1;
+	
 	const toggleModal = () => {
 		dispatch(showModal());
 	};
@@ -27,26 +43,26 @@ const Home = () => {
 	};
 	return (
 		<Grow in>
-			<Container>
+			<Container maxWidth="xl">
 				<Grid
 					className={classes.mainContainer}
 					container
-					justifyContent="space-between"
+					justifyContent="center"
 					alignItems="stretch"
 					spacing={3}
 				>
-					<Grid item xs={12} sm={2}>
+					<Grid item xs={10} sm={2} md="auto">
 						<button
 							className={classes.button}
 							onClick={() => {
 								toggleModal();
 							}}
 						>
-							{" "}
-							New Post{" "}
+							New Post
 						</button>
 					</Grid>
-					<Grid item xs={12} sm={12}>
+					<Search />
+					<Grid item xs={12} sm={6} md={9}>
 						<Posts />
 					</Grid>
 				</Grid>
