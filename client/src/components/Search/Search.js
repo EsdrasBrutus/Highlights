@@ -80,7 +80,7 @@ const Search = () => {
 						variant="outlined"
 						value={search}
 						onChange={() => {}}
-						//onKeyPress={handleKeyPress}
+						onKeyPress={handleKeyPress}
 						InputProps={{
 							endAdornment: (
 								<FormControl variant="outlined" className={classes.formControl}>
