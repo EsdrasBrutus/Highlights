@@ -12,6 +12,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import useStyles from "./styles";
 
 import ChipInput from "material-ui-chip-input";
+import SearchInput from "./SearchInput";
 
 const useQuery = () => {
 	return new URLSearchParams(useLocation().search);
@@ -24,18 +25,27 @@ const Search = () => {
 	const navigate = useNavigate();
 	const query = useQuery();
 	const searchQuery = query.get("search") || "";
+	const classes = useStyles();
 
-	const handleKeyPress = (e) => {
-		if (e.keyCode === 13) {
-			//search post
-		}
-	};
 	const handleAddChip = (tag) => setTags([...tags, tag]);
 
 	const handleDeleteChip = (chipToDelete) =>
 		setTags(tags.filter((tag) => tag !== chipToDelete));
 
-	const classes = useStyles();
+	const searchPost = () => {
+		if (search.trim()) {
+			//dispatch -> search post
+		}
+		else {
+			navigate("/");
+		}
+	};
+	const handleKeyPress = (e) => {
+		if (e.key === "Enter") {
+			//search post
+			searchPost();
+		}
+	};
 	return (
 		<>
 			<AppBar
@@ -52,23 +62,13 @@ const Search = () => {
 						variant="outlined"
 						InputProps={{
 							endAdornment: (
-								<FormControl variant="outlined" className={classes.formControl}>
-									<InputLabel id="demo-simple-select-outlined-label">
-										Search Type
-									</InputLabel>
-									<Select
-										labelId="demo-simple-select-outlined-label"
-										id="demo-simple-select-outlined"
-										value={searchBy}
-										onChange={(e) => {
-											setSearchBy(e.target.value);
-										}}
-										label={searchBy}
-									>
-										<MenuItem value="Title">Title</MenuItem>
-										<MenuItem value="Tags">Tags</MenuItem>
-									</Select>
-								</FormControl>
+								<>
+									<SearchInput
+										searchPost={searchPost}
+										setSearchBy={setSearchBy}
+										searchBy={searchBy}
+									/>
+								</>
 							),
 						}}
 					/>
@@ -83,23 +83,13 @@ const Search = () => {
 						onKeyPress={handleKeyPress}
 						InputProps={{
 							endAdornment: (
-								<FormControl variant="outlined" className={classes.formControl}>
-									<InputLabel id="demo-simple-select-outlined-label">
-										Search Type
-									</InputLabel>
-									<Select
-										labelId="demo-simple-select-outlined-label"
-										id="demo-simple-select-outlined"
-										value={searchBy}
-										onChange={(e) => {
-											setSearchBy(e.target.value);
-										}}
-										label={searchBy}
-									>
-										<MenuItem value="Title">Title</MenuItem>
-										<MenuItem value="Tags">Tags</MenuItem>
-									</Select>
-								</FormControl>
+								<>
+									<SearchInput
+										searchPost={searchPost}
+										setSearchBy={setSearchBy}
+										searchBy={searchBy}
+									/>
+								</>
 							),
 						}}
 					/>
