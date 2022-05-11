@@ -22,6 +22,38 @@ export const getPost = async (req, res) => {
 	}
 };
 
+export const getPostsBySearch = async (req, res) => {
+	const { searchQuery, tags } = req.query;
+
+	try {
+		const title = new RegExp(searchQuery, "i");
+		let posts;
+
+		//get only posts with the search query in the title or in the tags. if tags is empty, get all posts with the search query in the title
+		if (tags === "") {
+			const posts = await PostMessage.find({
+				$or: [{ title }],
+			})
+
+			res.status(200).json({data : posts });
+		}
+		else {
+			const posts = await PostMessage.find({
+				$and: [{ title }, { tags: { $in: tags } }],
+			});
+
+			res.status(200).json({ data: posts });
+		}
+
+
+		res.status(200).json({data : posts});
+		
+
+	} catch (err) {
+		res.status(404).json({ message: err.message });
+	}
+};
+
 export const createPost = async (req, res) => {
 	const post = req.body;
 
@@ -74,12 +106,11 @@ export const deletePost = async (req, res) => {
 export const likePost = async (req, res) => {
 	const { id } = req.params;
 
-    if (!req.userId)
-        return res.json({ message: "You must be logged in to like a post" });
-    
+	if (!req.userId)
+		return res.json({ message: "You must be logged in to like a post" });
+
 	if (!mongoose.Types.ObjectId.isValid(id))
 		return res.status(404).json({ message: "No post with that id" });
-
 
 	try {
 		const post = await PostMessage.findById(id);

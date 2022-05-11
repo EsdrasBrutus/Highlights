@@ -7,7 +7,7 @@ API.interceptors.request.use((req) => {
 		req.headers.Authorization = `Bearer ${
 			JSON.parse(localStorage.getItem("profile")).token
 		}`;
-    };
+	}
 	return req;
 });
 
@@ -49,4 +49,13 @@ export const signIn = (formData) => {
 export const signUp = async (formData) => {
 	const res = await API.post("/users/signup", formData);
 	return res.data;
+};
+
+export const fetchPostsBySearch = async (searchQuery) => {
+	const res = await API.get(
+		`/posts/search?searchQuery=${searchQuery.search || "none"}&tags=${
+			searchQuery.tags
+		}`
+	);
+	return res;
 };
