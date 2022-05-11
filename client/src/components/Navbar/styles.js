@@ -2,19 +2,25 @@ import { makeStyles } from "@material-ui/core/styles";
 
 export default makeStyles((theme) => ({
 	appBar: {
-		// borderRadius: 15,
 		marginBottom: "30px",
 		display: "flex",
 		flexDirection: "row",
-		justifyContent: "center",
+		justifyContent: "space-between",
 		alignItems: "center",
 		width: "100%",
+		[theme.breakpoints.down("xs")]: {
+			flexDirection: "column",
+		},
 	},
 	heading: {
 		color: theme.palette.primary.main,
 		textDecoration: "none",
 		fontSize: "2em",
 		fontWeight: 300,
+		display: "flex",
+		flexDirection: "row",
+		alignItems: "center",
+		margin: 10,
 	},
 	image: {
 		marginLeft: "10px",
@@ -23,7 +29,7 @@ export default makeStyles((theme) => ({
 	toolbar: {
 		display: "flex",
 		justifyContent: "flex-end",
-		width: "400px",
+		width: "300px",
 		[theme.breakpoints.down("sm")]: {
 			width: "auto",
 		},

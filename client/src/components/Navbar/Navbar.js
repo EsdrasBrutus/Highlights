@@ -32,7 +32,7 @@ const Navbar = () => {
 		setUser(JSON.parse(localStorage.getItem("profile")));
 	}, [location]);
 	return (
-		<AppBar className={classes.appBar} position="static" color="inherit" >
+		<AppBar className={classes.appBar} position="static" color="inherit">
 			<Typography
 				className={classes.heading}
 				variant="h2"
@@ -40,8 +40,9 @@ const Navbar = () => {
 				color="inherit"
 			>
 				Highlights
+				<img className={classes.image} src={logo} alt="logo" width={"60px"} />
 			</Typography>
-			<img className={classes.image} src={logo} alt="logo" width={"60px"} />
+
 			<Toolbar className={classes.toolbar}>
 				{user ? (
 					<div className={classes.profile}>

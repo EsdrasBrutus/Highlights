@@ -57,5 +57,6 @@ export const fetchPostsBySearch = async (searchQuery) => {
 			searchQuery.tags
 		}`
 	);
+	console.log(res);
 	return res;
 };

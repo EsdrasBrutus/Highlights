@@ -27,27 +27,18 @@ export const getPostsBySearch = async (req, res) => {
 
 	try {
 		const title = new RegExp(searchQuery, "i");
-		let posts;
 
-		//get only posts with the search query in the title or in the tags. if tags is empty, get all posts with the search query in the title
-		if (tags === "") {
-			const posts = await PostMessage.find({
-				$or: [{ title }],
-			})
+		if (!tags) {
+			const posts = await PostMessage.find({ title });
 
-			res.status(200).json({data : posts });
-		}
-		else {
+			res.status(200).json({ data: posts });
+		} else {
 			const posts = await PostMessage.find({
-				$and: [{ title }, { tags: { $in: tags } }],
+				$or: [{ title }, { tags: { $in: tags.split(",") } }], 
 			});
 
 			res.status(200).json({ data: posts });
 		}
-
-
-		res.status(200).json({data : posts});
-		
 
 	} catch (err) {
 		res.status(404).json({ message: err.message });
