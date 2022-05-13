@@ -22,7 +22,7 @@ const Navbar = () => {
 	useEffect(() => {
 		const token = user?.token;
 
-		if (token) { 
+		if (token) {
 			const decoded = jwt_decode(token);
 			if (decoded.exp * 1000 < new Date().getTime() / 1000) {
 				logout();
@@ -30,7 +30,8 @@ const Navbar = () => {
 		}
 
 		setUser(JSON.parse(localStorage.getItem("profile")));
-	}, [location]);
+	}, [location, user?.token]);
+
 	return (
 		<AppBar className={classes.appBar} position="static" color="inherit">
 			<Typography
@@ -39,7 +40,7 @@ const Navbar = () => {
 				align="center"
 				color="inherit"
 			>
-				Highlights
+				#LaughOutLoud
 				<img className={classes.image} src={logo} alt="logo" width={"60px"} />
 			</Typography>
 

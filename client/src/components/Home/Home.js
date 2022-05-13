@@ -25,15 +25,18 @@ const Home = () => {
 	const dispatch = useDispatch();
 	const query = useQuery();
 	const page = query.get("page") || 1;
+	const searchQuery = query.get("searchQuery");
 	
 	const toggleModal = () => {
 		dispatch(showModal());
 	};
 	const classes = useStyles();
 	const isOpen = useSelector((state) => state.modal);
-	useEffect(() => {
-		dispatch(getPosts());
-	}, [dispatch]);
+	
+	// useEffect(() => {
+	// 	dispatch(getPosts());
+	// }, [dispatch]);
+
 	const style = {
 		position: "absolute",
 		top: "50%",
@@ -67,7 +70,7 @@ const Home = () => {
 					</Grid>
 				</Grid>
 				<Paper className={classes.pagination} elevation={6}>
-					<Paginate />
+					<Paginate page={page} />
 				</Paper>
 				<Modal
 					open={isOpen}

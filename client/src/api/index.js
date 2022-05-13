@@ -11,8 +11,8 @@ API.interceptors.request.use((req) => {
 	return req;
 });
 
-export const fetchPosts = async () => {
-	const res = await API.get("/posts");
+export const fetchPosts = async (page) => {
+	const res = await API.get(`/posts?page=${page}`);
 	return res.data;
 };
 

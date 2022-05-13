@@ -9,6 +9,7 @@ import {
 	setCurrentId,
 } from "../../state/actions/postActions";
 import { useNavigate } from "react-router-dom";
+import { showModal } from "../../state/actions/modalActions";
 
 const Form = () => {
 	const [postData, setPostData] = useState({
@@ -18,14 +19,19 @@ const Form = () => {
 		selectedFile: "",
 	});
 	const classes = useStyles();
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+	const toggleModal = () => {
+		dispatch(showModal());
+	};
+
 	const postId = useSelector((state) => state.currentId);
 	const post = useSelector((state) =>
 		state.currentId
-			? state.posts.find((post) => post._id === state.currentId)
+			? state.posts.posts.find((post) => post._id === state.currentId)
 			: null
 	);
+
 	const user = JSON.parse(localStorage.getItem("profile"));
 
 	useEffect(() => {
@@ -51,22 +57,28 @@ const Form = () => {
 		} else {
 			dispatch(addPost({ ...postData, name: user?.result?.name }));
 		}
-  };
-  
-  if (!user?.token) {
-    return (
-      <Paper className={classes.paper}>
-        <Typography variant="h5">Please Sign In to Create a Post</Typography>
-        <Button variant="contained" color="primary" onClick={() => {
-          dispatch(setCurrentId(null));
-          clear();
-          navigate("/auth");
-        }}>
-          Sign In
-        </Button>
-      </Paper>
-    );
-  }
+		navigate("/");
+		toggleModal();
+	};
+
+	if (!user?.token) {
+		return (
+			<Paper className={classes.paper}>
+				<Typography variant="h5">Please Sign In to Create a Post</Typography>
+				<Button
+					variant="contained"
+					color="primary"
+					onClick={() => {
+						dispatch(setCurrentId(null));
+						clear();
+						navigate("/auth");
+					}}
+				>
+					Sign In
+				</Button>
+			</Paper>
+		);
+	}
 
 	return (
 		<Paper className={classes.paper} style={{ padding: "1rem" }}>

@@ -1,9 +1,9 @@
 import * as api from '../../api';
 import { FETCH_POSTS, CREATE, UPDATE, DELETE, LIKE, SET_CURRENT_ID, FETCH_BY_SEARCH } from './actionTypes';
 
-export const getPosts = () => async (dispatch) => {
+export const getPosts = (page) => async (dispatch) => {
     try {
-        const posts = await api.fetchPosts();
+        const posts = await api.fetchPosts(page);
         dispatch({
              type: FETCH_POSTS,
              payload: posts
