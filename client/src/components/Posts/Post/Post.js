@@ -6,7 +6,7 @@ import {
 	likePost,
 } from "../../../state/actions/postActions";
 import { showModal } from "../../../state/actions/modalActions";
-
+import { useNavigate } from "react-router-dom";
 import {
 	Card,
 	CardActions,
@@ -30,6 +30,7 @@ import useStyles from "./styles";
 const Post = ({ post }) => {
 	const classes = useStyles();
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 	const handleEdit = () => {
 		dispatch(setCurrentId(post._id));
 		dispatch(showModal());
@@ -37,7 +38,7 @@ const Post = ({ post }) => {
 	const user = JSON.parse(localStorage.getItem("profile"));
 
 	const openPost = () => {
-		// window.open(`/post/${post._id}`, "_blank");
+		navigate(`/posts/${post._id}`);
 	};
 
 	const Likes = () => {
@@ -67,75 +68,76 @@ const Post = ({ post }) => {
 	};
 
 	return (
-		<Card className={classes.card} raised elevation={6} onClick={openPost}>
-				<CardMedia
-					className={classes.media}
-					image={post.selectedFile ? post.selectedFile : frame}
-					title={post.title}
-				/>
-				<div className={classes.overlay}>
-					<Typography variant="h6">{post.name}</Typography>
-					<Typography variant="body2">
-						{moment(post.createdAt).fromNow()}
-					</Typography>
-				</div>
-				<div className={classes.overlay2}>
-					{(user?.result?.googleId === post?.creator ||
-						user?.result?._id === post?.creator) && (
-						<Button
-							style={{ color: "white" }}
-							size="small"
-							onClick={() => {
-								handleEdit();
-							}}
-						>
-							<MoreHorizIcon fontSize="medium" />
-						</Button>
-					)}
-				</div>
-				<div className={classes.details}>
-					<Typography variant="body2">
-						{post.tags.map((tag) => `#${tag}`)}
-					</Typography>
-				</div>
-				<Typography className={classes.title} variant="h5">
-					{post.title}
+		<Card className={classes.card} raised elevation={6}>
+			<CardMedia
+				className={classes.media}
+				image={post.selectedFile ? post.selectedFile : frame}
+				title={post.title}
+				onClick={openPost}
+			/>
+			<div className={classes.overlay}>
+				<Typography variant="h6">{post.name}</Typography>
+				<Typography variant="body2">
+					{moment(post.createdAt).fromNow()}
 				</Typography>
-				<CardContent>
-					<Typography
-						className={classes.title}
-						variant="body2"
-						color="textSecondary"
-						component="p"
-					>
-						{post.message}
-					</Typography>
-				</CardContent>
-				<CardActions className={classes.cardActions}>
+			</div>
+			<div className={classes.overlay2}>
+				{(user?.result?.googleId === post?.creator ||
+					user?.result?._id === post?.creator) && (
 					<Button
+						style={{ color: "white" }}
 						size="small"
-						color="primary"
-						disabled={!user?.result}
 						onClick={() => {
-							dispatch(likePost(post._id));
+							handleEdit();
 						}}
 					>
-						<Likes />
+						<MoreHorizIcon fontSize="medium" />
 					</Button>
-					{(user?.result?.googleId === post?.creator ||
-						user?.result?._id === post?.creator) && (
-						<Button
-							size="small"
-							color="secondary"
-							onClick={() => {
-								dispatch(deletePost(post._id));
-							}}
-						>
-							<DeleteIcon fontSize="small" />
-							Delete
-						</Button>
-					)}
-				</CardActions>
+				)}
+			</div>
+			<div className={classes.details}>
+				<Typography variant="body2">
+					{post.tags.map((tag) => `#${tag}`)}
+				</Typography>
+			</div>
+			<Typography className={classes.title} variant="h5">
+				{post.title}
+			</Typography>
+			<CardContent>
+				<Typography
+					className={classes.title}
+					variant="body2"
+					color="textSecondary"
+					component="p"
+				>
+					{post.message}
+				</Typography>
+			</CardContent>
+			<CardActions className={classes.cardActions}>
+				<Button
+					size="small"
+					color="primary"
+					disabled={!user?.result}
+					onClick={() => {
+						dispatch(likePost(post._id));
+					}}
+				>
+					<Likes />
+				</Button>
+				{(user?.result?.googleId === post?.creator ||
+					user?.result?._id === post?.creator) && (
+					<Button
+						size="small"
+						color="secondary"
+						onClick={() => {
+							dispatch(deletePost(post._id));
+						}}
+					>
+						<DeleteIcon fontSize="small" />
+						Delete
+					</Button>
+				)}
+			</CardActions>
 		</Card>
 	);
 };

@@ -1,4 +1,5 @@
 import {
+	FETCH_POST,
 	FETCH_POSTS,
 	CREATE,
 	UPDATE,
@@ -27,6 +28,11 @@ export default (state = { isLoading: true, posts: [] }, action) => {
 				posts: action.payload.data,
 				currentPage: action.payload.currentPage,
 				totalPages: action.payload.totalPages,
+			};
+		case FETCH_POST:
+			return {
+				...state,
+				post: action.payload,
 			};
 		case FETCH_BY_SEARCH:
 			return {
