@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
 	AppBar,
 	TextField,
@@ -24,9 +24,7 @@ const Search = () => {
 	const [tags, setTags] = useState([]);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-	const location = useLocation();
 	const query = useQuery();
-	const searchQuery = query.get("search") || "";
 	const classes = useStyles();
 
 	const handleAddChip = (tag) => {

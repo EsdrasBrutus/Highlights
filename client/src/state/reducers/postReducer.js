@@ -49,30 +49,3 @@ export default (state = { isLoading: true, posts: [] }, action) => {
 			return state;
 	}
 };
-
-// convert to redux-toolkit reducer
-// import { createSlice } from '@reduxjs/toolkit';
-//
-// const postSlice = createSlice({
-//     name: 'posts',
-//     initialState: {},
-//     reducers: {
-//         fetchPosts: (state, action) => action.payload,
-//         addPost: (state, action) => [...state, action.payload],
-//         deletePost: (state, action) => state.filter(post => post.id !== action.payload),
-//         editPost: (state, action) => state.map(post => {
-//             if (post.id === action.payload.id) {
-//                 return {
-//                     ...post,
-//                     ...action.payload
-//                 }
-//             } else {
-//                 return post;
-//             }
-//         })
-//     }
-// });
-//
-// export const { fetchPosts, addPost, deletePost, editPost } = postSlice.actions;
-//
-// export default postSlice.reducer;

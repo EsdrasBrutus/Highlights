@@ -21,10 +21,12 @@ export default makeStyles((theme) => ({
 		flexDirection: "row",
 		alignItems: "center",
 		margin: 10,
+		cursor: "pointer",
 	},
 	image: {
 		marginLeft: "10px",
 		marginTop: "5px",
+		cursor: "pointer",
 	},
 	toolbar: {
 		display: "flex",

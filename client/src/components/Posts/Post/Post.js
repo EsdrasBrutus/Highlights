@@ -20,7 +20,7 @@ import ThumbUpAltOutlined from "@material-ui/icons/ThumbUpAltOutlined";
 import DeleteIcon from "@material-ui/icons/Delete";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 
-import frame from "../../../images/default.jpg";
+import frame from "../../../images/logo.png";
 
 import moment from "moment";
 

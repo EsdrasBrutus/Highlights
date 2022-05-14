@@ -15,8 +15,8 @@ const Navbar = () => {
 
 	const logout = () => {
 		dispatch({ type: "LOGOUT" });
-		navigate("/");
 		setUser(null);
+		navigate("/");
 	};
 
 	useEffect(() => {
@@ -39,6 +39,9 @@ const Navbar = () => {
 				variant="h2"
 				align="center"
 				color="inherit"
+				onClick={() => {
+					navigate("/");
+				}}
 			>
 				#LaughOutLoud
 				<img className={classes.image} src={logo} alt="logo" width={"60px"} />

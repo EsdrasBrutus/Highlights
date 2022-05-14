@@ -20,9 +20,7 @@ export default makeStyles((theme) => ({
     },
     buttonSubmit: {
         marginBottom: 10,
-        //add spacing to the right
         marginRight: theme.spacing(2),
-        //additional styling
         backgroundColor: '#133a78',
         color: '#fff',
     },
