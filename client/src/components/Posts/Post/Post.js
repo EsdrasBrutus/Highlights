@@ -14,7 +14,7 @@ import {
 	CardMedia,
 	Typography,
 	Button,
-
+	ButtonBase,
 } from "@material-ui/core";
 import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import ThumbUpAltOutlined from "@material-ui/icons/ThumbUpAltOutlined";
@@ -69,50 +69,59 @@ const Post = ({ post }) => {
 
 	return (
 		<Card className={classes.card} raised elevation={6}>
-			<CardMedia
-				className={classes.media}
-				image={post.selectedFile ? post.selectedFile : frame}
-				title={post.title}
+			<ButtonBase
+				component="span"
+				name="test"
+				className={classes.cardAction}
 				onClick={openPost}
-			/>
-			<div className={classes.overlay}>
-				<Typography variant="h6">{post.name}</Typography>
-				<Typography variant="body2">
-					{moment(post.createdAt).fromNow()}
-				</Typography>
-			</div>
-			<div className={classes.overlay2}>
-				{(user?.result?.googleId === post?.creator ||
-					user?.result?._id === post?.creator) && (
-					<Button
-						style={{ color: "white" }}
-						size="small"
-						onClick={() => {
-							handleEdit();
-						}}
-					>
-						<MoreHorizIcon fontSize="medium" />
-					</Button>
-				)}
-			</div>
-			<div className={classes.details}>
-				<Typography variant="body2">
-					{post.tags.map((tag) => `#${tag}`)}
-				</Typography>
-			</div>
-			<Typography className={classes.title} variant="h5">
-				{post.title}
-			</Typography>
-			<CardContent>
-				<Typography
-					className={classes.title}
-					variant="body2"
-					color="textSecondary"
-					component="p"
-				>
-					{post.message}
-				</Typography>
-			</CardContent>
+			>
+				<div>
+					<CardMedia
+						className={classes.media}
+						image={post.selectedFile ? post.selectedFile : frame}
+						title={post.title}
+					/>
+					<div className={classes.overlay}>
+						<Typography variant="h6">{post.name}</Typography>
+						<Typography variant="body2">
+							{moment(post.createdAt).fromNow()}
+						</Typography>
+					</div>
+					<div className={classes.overlay2}>
+						{(user?.result?.googleId === post?.creator ||
+							user?.result?._id === post?.creator) && (
+							<Button
+								style={{ color: "white" }}
+								size="small"
+								onClick={() => {
+									handleEdit();
+								}}
+							>
+								<MoreHorizIcon fontSize="medium" />
+							</Button>
+						)}
+					</div>
+					<div className={classes.details}>
+						<Typography variant="body2">
+							{post.tags.map((tag) => `#${tag}`)}
+						</Typography>
+					</div>
+					<Typography className={classes.title} variant="h5">
+						{post.title}
+					</Typography>
+					<CardContent>
+						<Typography
+							className={classes.title}
+							variant="body2"
+							color="textSecondary"
+							component="p"
+						>
+							{post.message}
+						</Typography>
+					</CardContent>
+				</div>
+			</ButtonBase>
+
 			<CardActions className={classes.cardActions}>
 				<Button
 					size="small"
@@ -131,6 +140,7 @@ const Post = ({ post }) => {
 						color="secondary"
 						onClick={() => {
 							dispatch(deletePost(post._id));
+							navigate("/");
 						}}
 					>
 						<DeleteIcon fontSize="small" />

@@ -47,5 +47,10 @@ export default makeStyles((theme) => ({
 		margin: "20px",
 		height: "3rem",
 	},
-
+	recommendedPosts: {
+		display: "flex",
+		[theme.breakpoints.down("sm")]: {
+			flexDirection: "column",
+		},
+	},
 }));

@@ -11,7 +11,8 @@ import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import { useNavigate, useParams } from "react-router-dom";
 import useStyles from "./styles";
-import { getPost } from "../../state/actions/postActions";
+import { getPost, searchPosts } from "../../state/actions/postActions";
+import Post from "../Posts/Post/Post"
 
 const PostDetails = () => {
 	const { id } = useParams();
@@ -19,12 +20,18 @@ const PostDetails = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-	console.log(post);
 
 	const classes = useStyles();
+
 	useEffect(() => {
 		dispatch(getPost(id));
 	}, [id]);
+
+	useEffect(() => {
+		if (post) {
+			dispatch(searchPosts({ search: "none", tags: post?.tags.join(",") }));
+		}
+	}, [post]);
 
 	if (!post) return null;
 	if (isLoading) {
@@ -35,9 +42,10 @@ const PostDetails = () => {
 		);
 	}
 
+	const recommendedPosts = posts.filter(({ _id }) => _id !== post._id);
+
 	return (
 		<Container maxWidth="xl">
-			{/* back arrow button */}
 			<Button className={classes.backButton} onClick={() => navigate("/posts")}>
 				<i>←</i>
 			</Button>
@@ -81,6 +89,24 @@ const PostDetails = () => {
 						<Divider style={{ margin: "20px 0" }} />
 					</div>
 				</div>
+				{recommendedPosts.length > 0 && (
+					<div className={classes.section}>
+						<Typography variant="h4" component="h2">
+							you might also like
+						</Typography>
+						<Divider />
+						<div
+							className={classes.recommendedPosts}
+							style={{ margin: "20px" }}
+						>
+							{recommendedPosts.map((post, i) => (
+								<div key={i} style={{ margin: "20px" }}>
+									<Post post={post} />
+								</div>
+							))}
+						</div>
+					</div>
+				)}
 			</Paper>
 		</Container>
 	);
