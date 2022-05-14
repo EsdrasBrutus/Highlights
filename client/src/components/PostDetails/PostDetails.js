@@ -5,6 +5,7 @@ import {
 	CircularProgress,
 	Divider,
 	Container,
+	Button,
 } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
@@ -36,6 +37,10 @@ const PostDetails = () => {
 
 	return (
 		<Container maxWidth="xl">
+			{/* back arrow button */}
+			<Button className={classes.backButton} onClick={() => navigate("/posts")}>
+				<i>←</i>
+			</Button>
 			<Paper style={{ padding: "20px", borderRadius: "15px" }} elevation={6}>
 				<div className={classes.card}>
 					{post.selectedFile ? (

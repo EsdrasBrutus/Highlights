@@ -41,4 +41,11 @@ export default makeStyles((theme) => ({
 		borderRadius: "15px",
 		height: "39vh",
 	},
+	backButton: {
+		fontSize: "2rem",
+		color: "primary",
+		margin: "20px",
+		height: "3rem",
+	},
+
 }));
