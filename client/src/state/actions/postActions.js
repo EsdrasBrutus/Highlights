@@ -1,13 +1,15 @@
 import * as api from '../../api';
-import { FETCH_POSTS, CREATE, UPDATE, DELETE, LIKE, SET_CURRENT_ID, FETCH_BY_SEARCH } from './actionTypes';
+import { FETCH_POSTS, CREATE, UPDATE, DELETE, LIKE, SET_CURRENT_ID, FETCH_BY_SEARCH, START_LOADING, STOP_LOADING } from './actionTypes';
 
 export const getPosts = (page) => async (dispatch) => {
     try {
+        dispatch({ type: START_LOADING });
         const posts = await api.fetchPosts(page);
         dispatch({
              type: FETCH_POSTS,
              payload: posts
         });
+        dispatch({ type: STOP_LOADING });
    }
     catch (err) {
         console.log(err);
@@ -16,13 +18,14 @@ export const getPosts = (page) => async (dispatch) => {
 
 export const searchPosts = (searchQuery) => async (dispatch) => {
     try { 
+        dispatch({ type: START_LOADING });
         const { data : { data } } = await api.fetchPostsBySearch(searchQuery);
         
         dispatch({
             type: FETCH_BY_SEARCH,
             payload: data
         });
-
+        dispatch({ type: STOP_LOADING });
     }
     catch (err) {
         console.log(err);
@@ -31,6 +34,7 @@ export const searchPosts = (searchQuery) => async (dispatch) => {
 
 export const addPost = (newPost) => async (dispatch) => {
     try {
+        dispatch({ type: START_LOADING });
         const post = await api.createPost(newPost);
         dispatch({
             type: CREATE,

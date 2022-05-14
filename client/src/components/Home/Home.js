@@ -27,6 +27,7 @@ const Home = () => {
 	const query = useQuery();
 	const page = query.get("page") || 1;
 	const searchQuery = query.get("searchQuery");
+	const tags = query.get("tags");
 
 	const toggleModal = () => {
 		dispatch(showModal());
@@ -67,11 +68,13 @@ const Home = () => {
 						<Posts />
 					</Grid>
 				</Grid>
-				<div className={classes.pagination}>
-					<Paper className={classes.paginate} elevation={6}>
-						<Paginate page={page} />
-					</Paper>
-				</div>
+				{(!searchQuery && !tags) && (
+					<div className={classes.pagination}>
+						<Paper className={classes.paginate} elevation={6}>
+							<Paginate page={page} />
+						</Paper>
+					</div>
+				)}
 
 				<Modal
 					open={isOpen}

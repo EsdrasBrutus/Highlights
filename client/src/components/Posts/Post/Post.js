@@ -14,6 +14,7 @@ import {
 	CardMedia,
 	Typography,
 	Button,
+
 } from "@material-ui/core";
 import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import ThumbUpAltOutlined from "@material-ui/icons/ThumbUpAltOutlined";
@@ -34,6 +35,10 @@ const Post = ({ post }) => {
 		dispatch(showModal());
 	};
 	const user = JSON.parse(localStorage.getItem("profile"));
+
+	const openPost = () => {
+		// window.open(`/post/${post._id}`, "_blank");
+	};
 
 	const Likes = () => {
 		if (post.likes.length > 0) {
@@ -62,75 +67,75 @@ const Post = ({ post }) => {
 	};
 
 	return (
-		<Card className={classes.card} raised elevation={6}>
-			<CardMedia
-				className={classes.media}
-				image={post.selectedFile ? post.selectedFile : frame}
-				title={post.title}
-			/>
-			<div className={classes.overlay}>
-				<Typography variant="h6">{post.name}</Typography>
-				<Typography variant="body2">
-					{moment(post.createdAt).fromNow()}
+		<Card className={classes.card} raised elevation={6} onClick={openPost}>
+				<CardMedia
+					className={classes.media}
+					image={post.selectedFile ? post.selectedFile : frame}
+					title={post.title}
+				/>
+				<div className={classes.overlay}>
+					<Typography variant="h6">{post.name}</Typography>
+					<Typography variant="body2">
+						{moment(post.createdAt).fromNow()}
+					</Typography>
+				</div>
+				<div className={classes.overlay2}>
+					{(user?.result?.googleId === post?.creator ||
+						user?.result?._id === post?.creator) && (
+						<Button
+							style={{ color: "white" }}
+							size="small"
+							onClick={() => {
+								handleEdit();
+							}}
+						>
+							<MoreHorizIcon fontSize="medium" />
+						</Button>
+					)}
+				</div>
+				<div className={classes.details}>
+					<Typography variant="body2">
+						{post.tags.map((tag) => `#${tag}`)}
+					</Typography>
+				</div>
+				<Typography className={classes.title} variant="h5">
+					{post.title}
 				</Typography>
-			</div>
-			<div className={classes.overlay2}>
-				{(user?.result?.googleId === post?.creator ||
-					user?.result?._id === post?.creator) && (
-					<Button
-						style={{ color: "white" }}
-						size="small"
-						onClick={() => {
-							handleEdit();
-						}}
+				<CardContent>
+					<Typography
+						className={classes.title}
+						variant="body2"
+						color="textSecondary"
+						component="p"
 					>
-						<MoreHorizIcon fontSize="medium" />
-					</Button>
-				)}
-			</div>
-			<div className={classes.details}>
-				<Typography variant="body2">
-					{post.tags.map((tag) => `#${tag}`)}
-				</Typography>
-			</div>
-			<Typography className={classes.title} variant="h5">
-				{post.title}
-			</Typography>
-			<CardContent>
-				<Typography
-					className={classes.title}
-					variant="body2"
-					color="textSecondary"
-					component="p"
-				>
-					{post.message}
-				</Typography>
-			</CardContent>
-			<CardActions className={classes.cardActions}>
-				<Button
-					size="small"
-					color="primary"
-					disabled={!user?.result}
-					onClick={() => {
-						dispatch(likePost(post._id));
-					}}
-				>
-					<Likes />
-				</Button>
-				{(user?.result?.googleId === post?.creator ||
-					user?.result?._id === post?.creator) && (
+						{post.message}
+					</Typography>
+				</CardContent>
+				<CardActions className={classes.cardActions}>
 					<Button
 						size="small"
-						color="secondary"
+						color="primary"
+						disabled={!user?.result}
 						onClick={() => {
-							dispatch(deletePost(post._id));
+							dispatch(likePost(post._id));
 						}}
 					>
-						<DeleteIcon fontSize="small" />
-						Delete
+						<Likes />
 					</Button>
-				)}
-			</CardActions>
+					{(user?.result?.googleId === post?.creator ||
+						user?.result?._id === post?.creator) && (
+						<Button
+							size="small"
+							color="secondary"
+							onClick={() => {
+								dispatch(deletePost(post._id));
+							}}
+						>
+							<DeleteIcon fontSize="small" />
+							Delete
+						</Button>
+					)}
+				</CardActions>
 		</Card>
 	);
 };
