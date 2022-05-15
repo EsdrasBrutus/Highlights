@@ -2,10 +2,11 @@ import { makeStyles } from "@material-ui/core/styles";
 
 export default makeStyles((theme) => ({
 	media: {
-		borderRadius: "20px",
 		objectFit: "cover",
-		width: "auto",
 		maxHeight: "600px",
+		[theme.breakpoints.down("xs")]: {
+			width: "100%",
+		},
 	},
 	card: {
 		display: "flex",
@@ -53,7 +54,6 @@ export default makeStyles((theme) => ({
 			flexDirection: "column",
 		},
 	},
-	overlay2: {
-		color: "black",
-	},
+
+
 }));

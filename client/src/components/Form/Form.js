@@ -57,7 +57,7 @@ const Form = () => {
 			window.location.reload();
 		} else {
 			dispatch(addPost({ ...postData, name: user?.result?.name }));
-			navigate("/");
+			window.location.reload();
 		}
 		toggleModal();
 	};
@@ -85,7 +85,6 @@ const Form = () => {
 		<Paper className={classes.paper} style={{ padding: "1rem" }}>
 			<form
 				autoComplete="off"
-				noValidate
 				className={`${classes.root} ${classes.form}`}
 				onSubmit={handleSubmit}
 			>
@@ -96,6 +95,7 @@ const Form = () => {
 					name="title"
 					label="Title"
 					variant="outlined"
+					required
 					fullWidth
 					value={postData.title}
 					onChange={(e) => setPostData({ ...postData, title: e.target.value })}
@@ -116,6 +116,7 @@ const Form = () => {
 					name="tags"
 					label="Hashtags(separated by commas)"
 					variant="outlined"
+					required
 					fullWidth
 					value={postData.tags}
 					onChange={(e) =>

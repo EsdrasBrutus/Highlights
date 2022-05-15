@@ -86,7 +86,7 @@ const PostDetails = () => {
 				</Button>
 				{(user?.result?.googleId === post?.creator ||
 					user?.result?._id === post?.creator) && (
-					<ButtonGroup style={{height: "100%"}}>
+					<ButtonGroup style={{ height: "100%" }}>
 						<Button
 							color="primary"
 							size="small"
@@ -160,7 +160,7 @@ const PostDetails = () => {
 							className={classes.recommendedPosts}
 							style={{ margin: "20px" }}
 						>
-							{recommendedPosts.map((post, i) => (
+							{recommendedPosts.slice(0,5).map((post, i) => (
 								<div key={i} style={{ margin: "20px" }}>
 									<Post post={post} />
 								</div>
@@ -198,7 +198,7 @@ const PostDetails = () => {
 				}}
 				aria-labelledby="alert-dialog-title"
 				aria-describedby="alert-dialog-description"
-			>	
+			>
 				<DialogTitle id="alert-dialog-title">
 					{"Are you sure you want to delete this post?"}
 				</DialogTitle>
