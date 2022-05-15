@@ -16,7 +16,7 @@ const Navbar = () => {
 	const logout = () => {
 		dispatch({ type: "LOGOUT" });
 		setUser(null);
-		navigate("/");
+		window.location.reload();
 	};
 
 	useEffect(() => {

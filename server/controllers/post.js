@@ -35,7 +35,8 @@ export const getPostsBySearch = async (req, res) => {
 			const posts = await PostMessage.find({ title });
 
 			res.status(200).json({ data: posts });
-		} else {
+		}
+		else {
 			const posts = await PostMessage.find({
 				$or: [{ title }, { tags: { $in: tags.split(",") } }], 
 			});

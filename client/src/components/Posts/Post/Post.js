@@ -1,11 +1,8 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import {
-	deletePost,
-	setCurrentId,
 	likePost,
 } from "../../../state/actions/postActions";
-import { showModal } from "../../../state/actions/modalActions";
 import { useNavigate } from "react-router-dom";
 import {
 	Card,
@@ -18,8 +15,6 @@ import {
 } from "@material-ui/core";
 import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import ThumbUpAltOutlined from "@material-ui/icons/ThumbUpAltOutlined";
-import DeleteIcon from "@material-ui/icons/Delete";
-import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 
 import frame from "../../../images/logo.png";
 
@@ -31,10 +26,7 @@ const Post = ({ post }) => {
 	const classes = useStyles();
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const handleEdit = () => {
-		dispatch(setCurrentId(post._id));
-		dispatch(showModal());
-	};
+
 	const user = JSON.parse(localStorage.getItem("profile"));
 
 	const openPost = () => {
@@ -69,13 +61,13 @@ const Post = ({ post }) => {
 
 	return (
 		<Card className={classes.card} raised elevation={6}>
-			<ButtonBase
-				component="span"
-				name="test"
-				className={classes.cardAction}
-				onClick={openPost}
-			>
-				<div>
+			<div>
+				<ButtonBase
+					component="span"
+					name="test"
+					className={classes.cardAction}
+					onClick={openPost}
+				>
 					<CardMedia
 						className={classes.media}
 						image={post.selectedFile ? post.selectedFile : frame}
@@ -87,20 +79,7 @@ const Post = ({ post }) => {
 							{moment(post.createdAt).fromNow()}
 						</Typography>
 					</div>
-					<div className={classes.overlay2}>
-						{(user?.result?.googleId === post?.creator ||
-							user?.result?._id === post?.creator) && (
-							<Button
-								style={{ color: "white" }}
-								size="small"
-								onClick={() => {
-									handleEdit();
-								}}
-							>
-								<MoreHorizIcon fontSize="medium" />
-							</Button>
-						)}
-					</div>
+
 					<div className={classes.details}>
 						<Typography variant="body2">
 							{post.tags.map((tag) => `#${tag}`)}
@@ -119,8 +98,8 @@ const Post = ({ post }) => {
 							{post.message}
 						</Typography>
 					</CardContent>
-				</div>
-			</ButtonBase>
+				</ButtonBase>
+			</div>
 
 			<CardActions className={classes.cardActions}>
 				<Button
@@ -133,20 +112,6 @@ const Post = ({ post }) => {
 				>
 					<Likes />
 				</Button>
-				{(user?.result?.googleId === post?.creator ||
-					user?.result?._id === post?.creator) && (
-					<Button
-						size="small"
-						color="secondary"
-						onClick={() => {
-							dispatch(deletePost(post._id));
-							navigate("/");
-						}}
-					>
-						<DeleteIcon fontSize="small" />
-						Delete
-					</Button>
-				)}
 			</CardActions>
 		</Card>
 	);

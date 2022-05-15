@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
 	Avatar,
 	Button,
@@ -30,6 +30,7 @@ const Auth = () => {
 	const [showPassword, setShowPassword] = useState(false);
 	const [isSignUp, setIsSignUp] = useState(false);
 	const [formData, setFormData] = useState(initialState);
+	const [error, setError] = useState(''); 
 
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -64,11 +65,11 @@ const Auth = () => {
 
 			navigate("/");
 		} catch (err) {
-			console.log(err);
+			setError(err.message);
 		}
 	};
 	const googleFailure = (response) => {
-		console.log(response);
+		setError(response.error);
 	};
 
 	return (
@@ -80,6 +81,11 @@ const Auth = () => {
 				<Typography variant="h5">{isSignUp ? "Sign up" : "Login"}</Typography>
 				<form className={classes.form} onSubmit={handleSubmit}>
 					<Grid container spacing={2}>
+						{error && (
+							<Grid item xs={12}>
+								<Typography color="error">{error}</Typography>
+							</Grid>
+						)}
 						{isSignUp && (
 							<>
 								<Input

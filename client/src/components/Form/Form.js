@@ -54,10 +54,11 @@ const Form = () => {
 		e.preventDefault();
 		if (postId) {
 			dispatch(updatePost(postId, { ...postData, name: user?.result?.name }));
+			window.location.reload();
 		} else {
 			dispatch(addPost({ ...postData, name: user?.result?.name }));
+			navigate("/");
 		}
-		navigate("/");
 		toggleModal();
 	};
 
@@ -113,7 +114,7 @@ const Form = () => {
 				/>
 				<TextField
 					name="tags"
-					label="Hashtags"
+					label="Hashtags(separated by commas)"
 					variant="outlined"
 					fullWidth
 					value={postData.tags}

@@ -53,4 +53,7 @@ export default makeStyles((theme) => ({
 			flexDirection: "column",
 		},
 	},
+	overlay2: {
+		color: "black",
+	},
 }));
