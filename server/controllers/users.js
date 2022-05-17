@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import User from "../models/user.js";
-import bycrypt from "bcrypt";
+import bycryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 export const signIn = async (req, res) => {
@@ -12,7 +12,7 @@ export const signIn = async (req, res) => {
 		if (!user)
 			return res.status(404).json({ message: "No user with that email" });
 
-		const isMatch = await bycrypt.compare(password, user.password);
+		const isMatch = await bycryptjs.compare(password, user.password);
 
 		if (!isMatch) return res.status(401).json({ message: "Wrong email or password" });
 
@@ -41,7 +41,7 @@ export const signUp = async (req, res) => {
         if (password !== confirmPassword)
             return res.status(400).json({ message: "Passwords do not match" });
 
-        const hashedPassword = await bycrypt.hash(password, 12);
+        const hashedPassword = await bycryptjs.hash(password, 12);
 
         const newUser = new User({
             name: `${firstName} ${lastName}`,

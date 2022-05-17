@@ -81,11 +81,11 @@ const Auth = () => {
 				<Typography variant="h5">{isSignUp ? "Sign up" : "Login"}</Typography>
 				<form className={classes.form} onSubmit={handleSubmit}>
 					<Grid container spacing={2}>
-						{error && (
+						{/* {error && (
 							<Grid item xs={12}>
 								<Typography color="error">{error}</Typography>
 							</Grid>
-						)}
+						)} */}
 						{isSignUp && (
 							<>
 								<Input
