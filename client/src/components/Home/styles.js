@@ -4,8 +4,9 @@ export default makeStyles((theme) => ({
 
 	search: {
 		display: "flex",
-		justifyContent: "space-around",
+		justifyContent: "center",
 		alignItems: "center",
+		flexDirection: "row-reverse",
 	},
 	pagination: {
 		display: "flex",
@@ -21,7 +22,7 @@ export default makeStyles((theme) => ({
 	},
 	[theme.breakpoints.down("sm")]: {
 		mainContainer: {
-			width: "100%",
+			width: "auto",
 		},
 	}
 }));

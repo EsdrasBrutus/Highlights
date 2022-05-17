@@ -15,7 +15,7 @@ const Posts = () => {
 	) : (
 		<Grid
 			container
-			className={classes.container}
+			className={classes.mainContainer}
 			spacing={4}
 			alignItems={"stretch"}
 		>
